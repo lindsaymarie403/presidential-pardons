@@ -81,16 +81,16 @@ d3.select(window).on('resize', resize);
 function resize() {
 	console.log('----resize function----');
   // update width
-  width = parseInt(d3.select('#chart1').attr("width"), 10);
+  width = parseInt(d3.select('#chart1').style("width"), 10);
   width = width - margin.left - margin.right;
 
-  height = parseInt(svg.attr("height"));
+  height = parseInt(d3.select('#chart1').style("height"));
   height = height - margin.top - margin.bottom;
 	console.log('----resiz width----'+width);
 	console.log('----resiz height----'+height);
   // resize the chart
 
-  x.rangeRound([0, width]);
+  x.rangeRound([0, width]).padding(0.3);
   y.rangeRound([height, 0]);
 
     //yAxis.ticks(Math.max(height/50, 2));
