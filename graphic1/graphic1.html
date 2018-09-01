@@ -12,7 +12,7 @@
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 500 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var svg = d3.select('#chart1')
@@ -28,11 +28,6 @@ var xAxis = d3.axisBottom(xScale);
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var xAxis_g = g.append("g")
-          .attr("class", "axis axis--x")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
-
 d3.csv("graphic1.csv", function(d) {
   d.president = d.president;
   d.granted = +d.granted;
@@ -43,7 +38,10 @@ d3.csv("graphic1.csv", function(d) {
   xScale.domain(data.map(function(d) { return d.president; }));
   yScale.domain([0, d3.max(data, function(d) { return d.granted; })]);
 
-
+  g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
 
   g.append("g")
       .attr("class", "axis axis--y")
