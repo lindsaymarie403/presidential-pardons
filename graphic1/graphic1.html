@@ -20,11 +20,18 @@ var svg = d3.select('#chart1')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom);
 
-var x = d3.scaleBand().rangeRound([0, width]).padding(0.3),
-    y = d3.scaleLinear().rangeRound([height, 0]);
+var xScale = d3.scaleBand().rangeRound([0, width]).padding(0.3),
+    yScale = d3.scaleLinear().rangeRound([height, 0]);
+
+var xAxis = d3.axisBottom(xScale);
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var xAxis_g = g.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
 
 d3.csv("graphic1.csv", function(d) {
   d.president = d.president;
@@ -33,17 +40,14 @@ d3.csv("graphic1.csv", function(d) {
 }, function(error, data) {
   if (error) throw error;
 
-  x.domain(data.map(function(d) { return d.president; }));
-  y.domain([0, d3.max(data, function(d) { return d.granted; })]);
+  xScale.domain(data.map(function(d) { return d.president; }));
+  yScale.domain([0, d3.max(data, function(d) { return d.granted; })]);
 
-  g.append("g")
-      .attr("class", "axis axis--x")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+
 
   g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(5))
+      .call(d3.axisLeft(yScale).ticks(5))
 
   svg.append("text")
       .attr("transform", "rotate(-90)")
@@ -57,18 +61,18 @@ d3.csv("graphic1.csv", function(d) {
     .data(data)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.president); })
-      .attr("y", function(d) { return y(d.granted); })
-      .attr("width", x.bandwidth())
-      .attr("height", function(d) { return height - y(d.granted); });
+      .attr("x", function(d) { return xScale(d.president); })
+      .attr("y", function(d) { return yScale(d.granted); })
+      .attr("width", xScale.bandwidth())
+      .attr("height", function(d) { return height - yScale(d.granted); });
 
   svg.selectAll(".text")
   	 .data(data)
   	  .enter()
   	  .append("text")
   	  .attr("class","label")
-  	  .attr("x", (function(d) { return x(d.president) + 70; }  ))
-  	  .attr("y", function(d) { return y(d.granted) + 1; })
+  	  .attr("x", (function(d) { return xScale(d.president) + 70; }  ))
+  	  .attr("y", function(d) { return yScale(d.granted) + 1; })
   	  .attr("dy", ".75em")
       .attr("font-size",".8em")
   	  .text(function(d) { return d.granted; })
@@ -90,24 +94,26 @@ function resize() {
 	console.log('----resiz height----'+height);
   // resize the chart
 
-  x.rangeRound([0, width]).padding(0.3);
-  y.rangeRound([height, 0]);
+  xScale.rangeRound([0, width]).padding(0.3);
+  yScale.rangeRound([height, 0]);
 
     //yAxis.ticks(Math.max(height/50, 2));
-    //xAxis.ticks(Math.max(width/50, 2));
+    xAxis.ticks(Math.max(width/50, 2));
 
     d3.select(svg.node().parentNode)
         .attr('width', (width + margin.left + margin.right) + 'px');
 
     svg.selectAll('.bar')
-    	.attr("x", function(d) { return x(d.president); })
-      .attr("width", x.bandwidth());
+    	.attr("x", function(d) { return xScale(d.president); })
+      .attr("width", xScale.bandwidth());
 
    svg.selectAll(".label")
 	 // .attr("x", function(d) { return xScale(d.food); })
-      .attr("x", (function(d) { return x(d.president) + 70; }  ))
-      .attr("y", function(d) { return y(d.granted) + 1; })
+      .attr("x", (function(d) { return xScale(d.president) + 70; }  ))
+      .attr("y", function(d) { return yScale(d.granted) + 1; })
       .attr("dy", ".75em");
+
+    svg.select('.axis.axis--x').call(xAxis);
 
 }
 
