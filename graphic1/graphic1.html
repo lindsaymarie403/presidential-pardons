@@ -1,13 +1,74 @@
 <!DOCTYPE html>
+<head>
 <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i|Poppins:300,400,500,600,700&amp;subset=latin-ext" rel="stylesheet">
+
 <style>
 
+#container {
+	margin-top:20px;
+	margin-bottom:20px;
+	padding-left:20px;
+	padding-top:10px;
+	padding-right:30px;
+	padding-bottom:10px;
+	border-left:1px solid black;
+	border-bottom:14pt solid black;
+	border-top:1px solid black;
+	border-right:1px solid black;
+	box-shadow:5px 5px 10px gainsboro;
+	min-width: 400px;
+	max-width: 600px;
+	height: auto;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+h1 {
+  font-family: 'Droid Serif', serif;
+	font-weight:600;
+	font-size:20pt;
+	fill:#2c2c2c;
+  margin-bottom: -2px;
+}
+
+h2 {
+  font-family:'Poppins', sans-serif;
+  fill:grey;
+  font-weight:300;
+  font-size:12pt;
+  line-height: 14pt;
+}
+
+h3 {
+  font-family:'Poppins', sans-serif;
+	fill:grey;
+	font-weight:300;
+	font-size:8pt;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+
 .bar {
-  fill: steelblue;
+  fill: #fbd603;
 }
 
 </style>
+
+</head>
+
+<body>
+
+<div id="container">
+<div id="text">
+  <h1>Trump's Early-Term Pardons and Commutations Diverge from Recent Presidents' Clemency Patterns</h1>
+  <h3>By Lindsay Huth</h3>
+  <h2>Pardons and Commutations Granted During First 18 Months in Office</h2>
+</div>
 <div id="chart1"></div>
+
+</div>
+
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -53,10 +114,14 @@ d3.csv("graphic1.csv", function(d) {
   g.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
+        .style("font-size", "10px")
+        .style("font-family","Poppins")
         .call(xAxis);
 
   g.append("g")
       .attr("class", "axis axis--y")
+      .style("font-size", "10px")
+      .style("font-family","Poppins")
       .call(d3.axisLeft(yScale).ticks(5))
 
   svg.append("text")
@@ -65,6 +130,8 @@ d3.csv("graphic1.csv", function(d) {
       .attr("x",0 - (height / 2.5))
       .attr("dy", "1em")
       .attr("text-anchor", "end")
+      .attr("font-size", "12px")
+      .attr("font-family","Poppins")
       .text("Number Granted");
 
   g.selectAll(".bar")
@@ -86,7 +153,9 @@ d3.csv("graphic1.csv", function(d) {
   	  .attr("dy", ".75em")
       .attr("font-size",".8em")
   	  .text(function(d) { return d.granted; })
-      .style("text-anchor","middle");
+      .style("text-anchor","middle")
+      .attr("font-size", "11px")
+      .attr("font-family","Poppins");
 
   svg.selectAll(".anno1")
       .data(data)
@@ -94,7 +163,8 @@ d3.csv("graphic1.csv", function(d) {
       .attr("class","anno1")
       .attr("y", function(d) { return yScale(d.granted) - 35; })
       .text("Reagan began efforts to reduce ")
-      .attr("font-size", "13px")
+      .attr("font-size", "11px")
+      .attr("font-family","Poppins")
       .attr("fill","#939393")
       .style("display", function(d) {
          var disp;
@@ -109,7 +179,8 @@ d3.csv("graphic1.csv", function(d) {
       .attr("class","anno2")
        .attr("y", function(d) { return yScale(d.granted) - 20; })
        .text("politically motivated pardons")
-       .attr("font-size", "13px")
+       .attr("font-size", "11px")
+       .attr("font-family","Poppins")
        .attr("fill","#939393")
        .style("display", function(d) {
           var disp;
@@ -124,7 +195,8 @@ d3.csv("graphic1.csv", function(d) {
         .attr("class","anno3")
         .attr("y", function(d) { return yScale(d.granted) - 45; })
         .text("Before Trump, a president hadn't")
-        .attr("font-size", "13px")
+        .attr("font-size", "11px")
+        .attr("font-family","Poppins")
         .attr("fill","#939393")
         .style("display", function(d) {
            var disp;
@@ -139,7 +211,8 @@ d3.csv("graphic1.csv", function(d) {
         .attr("class","anno3")
          .attr("y", function(d) { return yScale(d.granted) - 30; })
          .text("granted an early-term pardon")
-         .attr("font-size", "13px")
+         .attr("font-size", "11px")
+         .attr("font-family","Poppins")
          .attr("fill","#939393")
          .style("display", function(d) {
             var disp;
@@ -154,7 +227,8 @@ d3.csv("graphic1.csv", function(d) {
          .attr("class","anno3")
           .attr("y", function(d) { return yScale(d.granted) - 15; })
           .text("in nearly 30 years")
-          .attr("font-size", "13px")
+          .attr("font-size", "11px")
+          .attr("font-family","Poppins")
           .attr("fill","#939393")
           .style("display", function(d) {
              var disp;
@@ -268,3 +342,5 @@ https://bl.ocks.org/curran/3a68b0c81991e2e94b19
 */
 
 </script>
+
+</body>
