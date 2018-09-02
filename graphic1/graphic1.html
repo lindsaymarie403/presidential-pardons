@@ -95,23 +95,22 @@ function resize() {
   xScale.rangeRound([0, width]).padding(0.3);
   yScale.rangeRound([height, 0]);
 
-    //yAxis.ticks(Math.max(height/50, 2));
-    xAxis.ticks(Math.max(width/50, 2));
+  //yAxis.ticks(Math.max(height/50, 2));
+  xAxis.ticks(Math.max(width/50, 2));
 
-    d3.select(svg.node().parentNode)
-        .attr('width', (width + margin.left + margin.right) + 'px');
+  d3.select(svg.node().parentNode)
+      .attr('width', (width + margin.left + margin.right) + 'px');
 
-    svg.selectAll('.bar')
-    	.attr("x", function(d) { return xScale(d.president); })
-      .attr("width", xScale.bandwidth());
+  svg.selectAll('.bar')
+  	.attr("x", function(d) { return xScale(d.president); })
+    .attr("width", xScale.bandwidth());
 
-   svg.selectAll(".label")
-	 // .attr("x", function(d) { return xScale(d.food); })
-      .attr("x", (function(d) { return xScale(d.president) + 70; }  ))
-      .attr("y", function(d) { return yScale(d.granted) + 1; })
-      .attr("dy", ".75em");
+  svg.selectAll(".label")
+    .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth() / 2; }  ))
+    .attr("y", function(d) { return yScale(d.granted) + 1; })
+    .attr("dy", ".75em");
 
-    svg.select('.axis.axis--x').call(xAxis);
+  svg.select('.axis.axis--x').call(xAxis);
 
 }
 
