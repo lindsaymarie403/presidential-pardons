@@ -25,6 +25,12 @@ var xScale = d3.scaleBand().rangeRound([0, width]).padding(0.3),
 
 var xAxis = d3.axisBottom(xScale);
 
+var arc = d3.arc()
+    .innerRadius(24)
+    .outerRadius(25)
+    .startAngle(- Math.PI / 2)
+    .endAngle(0);
+
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -75,6 +81,47 @@ d3.csv("graphic1.csv", function(d) {
       .attr("font-size",".8em")
   	  .text(function(d) { return d.granted; })
       .style("text-anchor","middle");
+
+  svg.selectAll(".anno1")
+      .data(data)
+    .enter().append("text")
+      .attr("class","anno1")
+      .attr("y", function(d) { return yScale(d.granted) - 35; })
+      .text("Reagan began efforts to reduce ")
+      .attr("font-size", "13px")
+      .style("display", function(d) {
+         var disp;
+         if (d.president === "Reagan") { disp = "inline";
+       } else { disp = "none";
+         } return disp;
+       });
+
+   svg.selectAll(".anno2")
+       .data(data)
+     .enter().append("text")
+      .attr("class","anno2")
+       .attr("y", function(d) { return yScale(d.granted) - 20; })
+       .text("politically motivated pardons")
+       .attr("font-size", "13px")
+       .style("display", function(d) {
+          var disp;
+          if (d.president === "Reagan") { disp = "inline";
+        } else { disp = "none";
+          } return disp;
+        });
+
+    svg.selectAll(".curve1")
+      .data(data)
+    .enter().append("path")
+      .attr("class","curve1")
+      .attr("d", arc)
+      .attr("transform", "translate(0,110)")
+      .style("display", function(d) {
+         var disp;
+         if (d.president === "Reagan") { disp = "inline";
+       } else { disp = "none";
+         } return disp;
+       });;
 });
 
 document.addEventListener("DOMContentLoaded", resize);
@@ -109,6 +156,17 @@ function resize() {
     .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth() / 2; }  ))
     .attr("y", function(d) { return yScale(d.granted) + 1; })
     .attr("dy", ".75em");
+
+  svg.selectAll(".anno1")
+    .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth(); }  ));
+
+  svg.selectAll(".anno2")
+    .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth(); }  ));
+
+  svg.selectAll(".curve1")
+    .attr("transform",function(d) { return "translate(" + (xScale(d.president) + margin.left + xScale.bandwidth() - 10) + ",110)";});
+
+    //.attr("transform", "translate(" + parseInt(d3.select('.label:nth-child(4)').attr("x")) + ",110)")
 
   svg.select('.axis.axis--x').call(xAxis);
 
