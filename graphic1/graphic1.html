@@ -110,18 +110,36 @@ d3.csv("graphic1.csv", function(d) {
           } return disp;
         });
 
+    defs = svg.append("defs")
+
+    defs.append("marker")
+        .attr("id","arrow")
+         .attr("viewBox","0 -5 10 10")
+         .attr("refX",5)
+         .attr("refY",0)
+         .attr("markerWidth",7)
+         .attr("markerHeight",7)
+         .attr("orient","auto")
+         .attr("fill","#939393")
+        .append("path")
+    				.attr("d", "M0,-5L10,0L0,5")
+    				.attr("class","arrowHead");
+
     svg.selectAll(".curve1")
       .data(data)
     .enter().append("path")
       .attr("class","curve1")
       .attr("d", arc)
       .attr("transform", "translate(0,110)")
+      .attr("fill","#939393")
+      .attr("marker-end","url(#arrow)")
       .style("display", function(d) {
          var disp;
          if (d.president === "Reagan") { disp = "inline";
        } else { disp = "none";
          } return disp;
-       });;
+       });
+
 });
 
 document.addEventListener("DOMContentLoaded", resize);
