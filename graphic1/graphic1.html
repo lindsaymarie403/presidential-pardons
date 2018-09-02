@@ -25,10 +25,16 @@ var xScale = d3.scaleBand().rangeRound([0, width]).padding(0.3),
 
 var xAxis = d3.axisBottom(xScale);
 
-var arc = d3.arc()
+var arc1 = d3.arc()
     .innerRadius(24)
     .outerRadius(25)
     .startAngle(- Math.PI / 2)
+    .endAngle(0);
+
+var arc2 = d3.arc()
+    .innerRadius(24)
+    .outerRadius(25)
+    .startAngle(Math.PI / 2)
     .endAngle(0);
 
 var g = svg.append("g")
@@ -89,6 +95,7 @@ d3.csv("graphic1.csv", function(d) {
       .attr("y", function(d) { return yScale(d.granted) - 35; })
       .text("Reagan began efforts to reduce ")
       .attr("font-size", "13px")
+      .attr("fill","#939393")
       .style("display", function(d) {
          var disp;
          if (d.president === "Reagan") { disp = "inline";
@@ -103,12 +110,58 @@ d3.csv("graphic1.csv", function(d) {
        .attr("y", function(d) { return yScale(d.granted) - 20; })
        .text("politically motivated pardons")
        .attr("font-size", "13px")
+       .attr("fill","#939393")
        .style("display", function(d) {
           var disp;
           if (d.president === "Reagan") { disp = "inline";
         } else { disp = "none";
           } return disp;
         });
+
+    svg.selectAll(".anno3")
+        .data(data)
+      .enter().append("text")
+        .attr("class","anno3")
+        .attr("y", function(d) { return yScale(d.granted) - 45; })
+        .text("Before Trump, a president hadn't")
+        .attr("font-size", "13px")
+        .attr("fill","#939393")
+        .style("display", function(d) {
+           var disp;
+           if (d.president === "Trump") { disp = "inline";
+         } else { disp = "none";
+           } return disp;
+         });
+
+     svg.selectAll(".anno4")
+         .data(data)
+       .enter().append("text")
+        .attr("class","anno3")
+         .attr("y", function(d) { return yScale(d.granted) - 30; })
+         .text("granted an early-term pardon")
+         .attr("font-size", "13px")
+         .attr("fill","#939393")
+         .style("display", function(d) {
+            var disp;
+            if (d.president === "Trump") { disp = "inline";
+          } else { disp = "none";
+            } return disp;
+          });
+
+      svg.selectAll(".anno5")
+          .data(data)
+        .enter().append("text")
+         .attr("class","anno3")
+          .attr("y", function(d) { return yScale(d.granted) - 15; })
+          .text("in nearly 30 years")
+          .attr("font-size", "13px")
+          .attr("fill","#939393")
+          .style("display", function(d) {
+             var disp;
+             if (d.president === "Trump") { disp = "inline";
+           } else { disp = "none";
+             } return disp;
+           });
 
     defs = svg.append("defs")
 
@@ -129,8 +182,7 @@ d3.csv("graphic1.csv", function(d) {
       .data(data)
     .enter().append("path")
       .attr("class","curve1")
-      .attr("d", arc)
-      .attr("transform", "translate(0,110)")
+      .attr("d", arc1)
       .attr("fill","#939393")
       .attr("marker-end","url(#arrow)")
       .style("display", function(d) {
@@ -139,6 +191,20 @@ d3.csv("graphic1.csv", function(d) {
        } else { disp = "none";
          } return disp;
        });
+
+     svg.selectAll(".curve2")
+       .data(data)
+     .enter().append("path")
+       .attr("class","curve2")
+       .attr("d", arc2)
+       .attr("fill","#939393")
+       .attr("marker-end","url(#arrow)")
+       .style("display", function(d) {
+          var disp;
+          if (d.president === "Trump") { disp = "inline";
+        } else { disp = "none";
+          } return disp;
+        });
 
 });
 
@@ -181,10 +247,15 @@ function resize() {
   svg.selectAll(".anno2")
     .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth(); }  ));
 
+  svg.selectAll(".anno3")
+    .style("text-anchor", "end")
+    .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth() - (xScale.bandwidth()/1.25) - 10; }  ));
+
   svg.selectAll(".curve1")
     .attr("transform",function(d) { return "translate(" + (xScale(d.president) + margin.left + xScale.bandwidth() - 10) + ",110)";});
 
-    //.attr("transform", "translate(" + parseInt(d3.select('.label:nth-child(4)').attr("x")) + ",110)")
+  svg.selectAll(".curve2")
+    .attr("transform",function(d) { return "translate(" + (xScale(d.president) + margin.left + xScale.bandwidth() - (xScale.bandwidth()/1.25)) + ",228)";});
 
   svg.select('.axis.axis--x').call(xAxis);
 
