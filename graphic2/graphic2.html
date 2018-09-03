@@ -78,9 +78,9 @@ h3 {
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-var margin = {top: 30, right: 20, bottom: 16, left: 50},
+var margin = {top: 45, right: 20, bottom: 16, left: 50},
     width = 625 - margin.left - margin.right,
-    height = 72 - margin.top - margin.bottom;
+    height = 87 - margin.top - margin.bottom;
 
 var svg = d3.select('#chart1')
   .append('svg')
@@ -161,8 +161,17 @@ d3.csv("positive.csv", function(d) {
 		.attr("class","anno3")
 		.attr("x", margin.left + xScale.bandwidth() + 10)
 		.attr("y", 10)
-		.text("Petitions that were dealt with")
-		.attr("font-size", "11px")
+		.text("Petitions the president granted,")
+		.attr("font-size", "12px")
+		.attr("font-family","Poppins")
+		.attr("fill","#b71919");
+
+	svg.append("text")
+		.attr("class","anno3")
+		.attr("x", margin.left + xScale.bandwidth() + 10)
+		.attr("y", 25)
+		.text("denied or closed")
+		.attr("font-size", "12px")
 		.attr("font-family","Poppins")
 		.attr("fill","#b71919");
 
@@ -364,7 +373,7 @@ d3.csv("negative.csv", function(d) {
 			 .attr("x1", margin.left + xScale.bandwidth())
 				.attr("y1", 5)
 				.attr("x2", margin.left + xScale.bandwidth())
-				.attr("y2", height + margin.top + 10)
+				.attr("y2", height + margin.top + 20)
 				.attr("stroke-width", 2)
 				.attr("stroke", "#b71919")
 			 .attr("marker-end","url(#arrow2)");
@@ -373,10 +382,37 @@ d3.csv("negative.csv", function(d) {
 			 .attr("class","anno3")
 			 .attr("x", margin.left + xScale.bandwidth() + 10)
 			 .attr("y", height + margin.top + 10)
-			 .text("Petitions left over")
-			 .attr("font-size", "11px")
+			 .text("Petitions the president")
+			 .attr("font-size", "12px")
 			 .attr("font-family","Poppins")
 			 .attr("fill","#b71919");
+
+		 svg1.append("text")
+			 .attr("class","anno3")
+			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("y", height + margin.top + 25)
+			 .text("did not address")
+			 .attr("font-size", "12px")
+			 .attr("font-family","Poppins")
+			 .attr("fill","#b71919");
+
+		 svg1.append("text")
+			 .attr("class","anno3")
+			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("y", height + margin.top + 42)
+			 .text("(Unaddressed petitions")
+			 .attr("font-size", "12px")
+			 .attr("font-family","Poppins")
+			 .attr("fill","#939393");
+
+		 svg1.append("text")
+			 .attr("class","anno3")
+			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("y", height + margin.top + 58)
+			 .text("roll over to next year)")
+			 .attr("font-size", "12px")
+			 .attr("font-family","Poppins")
+			 .attr("fill","#939393");
 
 });
 
