@@ -94,14 +94,8 @@ var xAxis = d3.axisBottom(xScale);
 var arc1 = d3.arc()
     .innerRadius(24)
     .outerRadius(25)
-    .startAngle(- Math.PI / 2)
-    .endAngle(0);
-
-var arc2 = d3.arc()
-    .innerRadius(24)
-    .outerRadius(25)
-    .startAngle(Math.PI / 2)
-    .endAngle(0);
+    .startAngle(-Math.PI / 2)
+    .endAngle(Math.PI / 2);
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -137,6 +131,39 @@ d3.csv("positive.csv", function(d) {
       .attr("y", function(d) { return yScale(d.positive); })
       .attr("width", xScale.bandwidth())
       .attr("height", function(d) { return height - yScale(d.positive); });
+
+	defs = svg.append("defs")
+
+	defs.append("marker")
+			.attr("id","arrow2")
+			 .attr("viewBox","0 -5 10 10")
+			 .attr("refX",5)
+			 .attr("refY",0)
+			 .attr("markerWidth",4)
+			 .attr("markerHeight",4)
+			 .attr("orient","auto")
+			 .attr("fill","#939393")
+			.append("path")
+					.attr("d", "M0,-5L10,0L0,5")
+					.attr("class","arrowHead");
+
+	svg.append("line")
+  	.attr("x1", margin.left + xScale.bandwidth())
+    .attr("y1", height + margin.top)
+    .attr("x2", margin.left + xScale.bandwidth())
+    .attr("y2", 5)
+    .attr("stroke-width", 2)
+    .attr("stroke", "#939393")
+		.attr("marker-end","url(#arrow2)");
+
+	svg.append("text")
+		.attr("class","anno3")
+		.attr("x", margin.left + xScale.bandwidth() + 10)
+		.attr("y", 10)
+		.text("Petitions that were dealt with")
+		.attr("font-size", "11px")
+		.attr("font-family","Poppins")
+		.attr("fill","#939393");
 
 });
 
@@ -202,6 +229,10 @@ function resize() {
 		.style("text-anchor", "end")
 		.attr("x", (function(d) { return xScale1(d.year) + margin1.left + xScale1.bandwidth() - (xScale1.bandwidth()/1.25) - 30; }  ));
 
+	svg1.selectAll(".curve1")
+		.attr("transform",function(d) { return "translate(" + (xScale1(d.year) + margin1.left + xScale1.bandwidth() - 30) + "," + yScale1(d.negative) + ") rotate(180)"; });
+		//.attr("transform", "rotate(5)");
+
 }
 
 </script>
@@ -253,10 +284,10 @@ d3.csv("negative.csv", function(d) {
       .attr("y", 0)
       .attr("x",0 - (height1 / 2.5))
       .attr("dy", "1em")
-      .attr("text-anchor", "end")
+      .attr("text-anchor", "middle")
       .attr("font-size", "12px")
       .attr("font-family","Poppins")
-      .text("Number Granted");
+      .text("Number of Pardon Applications");
 
   g1.selectAll(".bar")
     .data(data)
@@ -271,7 +302,7 @@ d3.csv("negative.csv", function(d) {
 			.data(data)
 		.enter().append("text")
 			.attr("class","anno1")
-			.attr("y", function(d) { return yScale1(d.negative); })
+			.attr("y", function(d) { return yScale1(d.negative) - 5; })
 			.text("Obama launches his")
 			.attr("font-size", "11px")
 			.attr("font-family","Poppins")
@@ -287,7 +318,7 @@ d3.csv("negative.csv", function(d) {
 			 .data(data)
 		 .enter().append("text")
 			.attr("class","anno2")
-			 .attr("y", function(d) { return yScale1(d.negative) + 15; })
+			 .attr("y", function(d) { return yScale1(d.negative) + 10; })
 			 .text("clemency initiative")
 			 .attr("font-size", "11px")
 			 .attr("font-family","Poppins")
@@ -298,6 +329,53 @@ d3.csv("negative.csv", function(d) {
 				} else { disp = "none";
 					} return disp;
 				});
+
+		defs = svg1.append("defs")
+
+		defs.append("marker")
+				.attr("id","arrow")
+				 .attr("viewBox","0 -5 10 10")
+				 .attr("refX",5)
+				 .attr("refY",0)
+				 .attr("markerWidth",7)
+				 .attr("markerHeight",7)
+				 .attr("orient","auto")
+				 .attr("fill","#939393")
+				.append("path")
+						.attr("d", "M0,-5L10,0L0,5")
+						.attr("class","arrowHead");
+
+		svg1.selectAll(".curve1")
+			.data(data)
+		.enter().append("path")
+			.attr("class","curve1")
+			.attr("d", arc1)
+			.attr("fill","#939393")
+			.attr("marker-end","url(#arrow)")
+			.style("display", function(d) {
+				 var disp;
+				 if (d.year === "2014") { disp = "inline";
+			 } else { disp = "none";
+				 } return disp;
+			 });
+
+		 svg1.append("line")
+			 .attr("x1", margin.left + xScale.bandwidth())
+				.attr("y1", 5)
+				.attr("x2", margin.left + xScale.bandwidth())
+				.attr("y2", height + margin.top)
+				.attr("stroke-width", 2)
+				.attr("stroke", "#939393")
+			 .attr("marker-end","url(#arrow2)");
+
+		 svg1.append("text")
+			 .attr("class","anno3")
+			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("y", height + margin.top)
+			 .text("Petitions left over")
+			 .attr("font-size", "11px")
+			 .attr("font-family","Poppins")
+			 .attr("fill","#939393");
 
 });
 
