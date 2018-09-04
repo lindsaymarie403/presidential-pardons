@@ -38,7 +38,7 @@ h2 {
   font-weight:300;
   font-size:12pt;
   line-height: 14pt;
-	margin-bottom: 25px;
+	margin-bottom: 0px;
 }
 
 h3 {
@@ -447,7 +447,7 @@ function resize() {
 		.attr("x", (function(d) { return xScale1(d.year) + margin1.left + xScale1.bandwidth() - (xScale1.bandwidth()/1.25) - 30; }  ));
 
 	svg1.selectAll(".curve1")
-		.attr("transform",function(d) { return "translate(" + (xScale1(d.year) + margin1.left + xScale1.bandwidth() - 30) + "," + yScale1(d.negative) + ") rotate(180)"; });
+		.attr("transform",function(d) { return "translate(" + (xScale1(d.year) + margin1.left + xScale1.bandwidth() - 30) + ",220) rotate(180)"; });
 
 	//CARTER
 	svg.selectAll(".carter")
