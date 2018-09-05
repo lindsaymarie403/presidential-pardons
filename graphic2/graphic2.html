@@ -110,7 +110,7 @@ var xScale = d3.scaleBand().rangeRound([0, width]).padding(0.3),
     yScale = d3.scaleLinear().rangeRound([height, 0]);
 
 var z = d3.scaleOrdinal()
-    .range(["#fbd603", "#ea9f00", "#fbd603", "#ea9f00", "#fbd603", "#ea9f00", "#fbd603"]);
+    .range(["#fbd603", "#db6702", "#fbd603", "#db6702", "#fbd603", "#db6702", "#fbd603"]);
 
 var xAxis = d3.axisBottom(xScale);
 
@@ -292,7 +292,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.data(data)
 			.attr("class","reagan")
 			.attr("stroke-width", 2)
-			.attr("stroke", "#ea9f00")
+			.attr("stroke", "#db6702")
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -301,7 +301,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","reagan-dot1")
 			.attr("width", "2px")
 			.attr("height", "9px")
-			.attr("fill", "#ea9f00")
+			.attr("fill", "#db6702")
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -309,7 +309,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","reagan-dot2")
 			.attr("width", "2px")
 			.attr("height", "10px")
-			.attr("fill", "#ea9f00")
+			.attr("fill", "#db6702")
 			.attr("y", 39);
 
 	svg.append("text")
@@ -360,7 +360,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.data(data)
 			.attr("class","clinton")
 			.attr("stroke-width", 2)
-			.attr("stroke", "#ea9f00")
+			.attr("stroke", "#db6702")
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -369,7 +369,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","clinton-dot1")
 			.attr("width", "2px")
 			.attr("height", "9px")
-			.attr("fill", "#ea9f00")
+			.attr("fill", "#db6702")
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -377,7 +377,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","clinton-dot2")
 			.attr("width", "2px")
 			.attr("height", "10px")
-			.attr("fill", "#ea9f00")
+			.attr("fill", "#db6702")
 			.attr("y", 39);
 
 	svg.append("text")
@@ -428,7 +428,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.data(data)
 			.attr("class","obama")
 			.attr("stroke-width", 2)
-			.attr("stroke", "#ea9f00")
+			.attr("stroke", "#db6702")
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -437,7 +437,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","obama-dot1")
 			.attr("width", "2px")
 			.attr("height", "9px")
-			.attr("fill", "#ea9f00")
+			.attr("fill", "#db6702")
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -445,7 +445,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","obama-dot2")
 			.attr("width", "2px")
 			.attr("height", "10px")
-			.attr("fill", "#ea9f00")
+			.attr("fill", "#db6702")
 			.attr("y", 39);
 
 	svg.append("text")
