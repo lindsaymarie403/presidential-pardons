@@ -713,7 +713,11 @@ d3.csv("negative.csv", function(d) {
       .attr("class", "axis axis--y two")
       .style("font-size", "10px")
       .style("font-family","Poppins")
-      .call(d3.axisLeft(yScale1).tickValues([0,d3.min(data, function(d) { return d.negative; })]));
+      .call(d3.axisLeft(yScale1)
+				.tickValues([0,d3.min(data, function(d) { return d.negative; })])
+				.tickFormat(function(d){
+        return d3.format("0,")(Math.abs(d))})
+			);
 
   svg1.append("text")
       .attr("transform", "rotate(-90)")
