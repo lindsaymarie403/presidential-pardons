@@ -68,7 +68,10 @@ h4 {
 }
 
 @media screen and (max-width: 500px) {
-    .carter, .carter-dot1, .carter-dot2, .carter-name, .reagan, .reagan-dot2, .reagan-name, .hwbush, .hwbush-dot2, .hwbush-name, .clinton, .clinton-dot2, .clinton-name, .bush, .bush-dot2, .bush-name, .obama, .obama-dot2, .obama-name, .trump, .trump-dot2, .trump-name {
+    .carter, .carter-dot1, .carter-dot2, .carter-name, .reagan, .reagan-dot1, .reagan-dot2, .reagan-name, .hwbush, .hwbush-dot1, .hwbush-dot2, .hwbush-name, .clinton, .clinton-dot2, .clinton-name, .bush, .bush-dot2, .bush-name, .obama, .obama-dot2, .obama-name, .trump, .trump-dot2, .trump-name {
+			display: none;
+		}
+		.clinton-dot1, .bush-dot1, .obama-dot1, .trump-dot1 {
 			display: none;
 		}
 }
@@ -147,17 +150,18 @@ d3.csv("positive_new.csv", function(d, i, columns) {
       .attr("class", "axis axis--y")
       .style("font-size", "10px")
       .style("font-family","Poppins")
-      .call(d3.axisLeft(yScale).tickValues([d3.max(data, function(d) { return d.total; })]));
-/*
-  g.selectAll(".bar")
-    .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.year); })
-      .attr("y", function(d) { return yScale(d.positive); })
-      .attr("width", xScale.bandwidth())
-      .attr("height", function(d) { return height - yScale(d.positive); });
-*/
+      .call(d3.axisLeft(yScale).tickValues([0,d3.max(data, function(d) { return d.total; })]));
+
+	svg.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 0)
+			.attr("x", -height1 + 25)
+			.attr("dy", "1em")
+			.attr("text-anchor", "left")
+			.attr("font-size", "12px")
+			.attr("font-family","Poppins")
+			.text("Applications");
+
 	g.append("g")
 		.selectAll("g")
 		.data(d3.stack().keys(keys)(data))
@@ -222,28 +226,28 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","carter")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#fbd603")
-	    .attr("y1", 50)
-			.attr("y2", 50);
+	    .attr("y1", 40)
+			.attr("y2", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","carter-dot1")
 			.attr("width", "2px")
-			.attr("height", "4px")
+			.attr("height", "9px")
 			.attr("fill", "#fbd603")
-	    .attr("y", 50);
+	    .attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","carter-dot2")
 			.attr("width", "2px")
-			.attr("height", "4px")
+			.attr("height", "10px")
 			.attr("fill", "#fbd603")
-			.attr("y", 50);
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","carter-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("CARTER")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -254,22 +258,30 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 	svg.append("line")
 			.data(data)
 			.attr("class","reagan")
-			.attr("stroke-width", 1)
-			.attr("stroke", "#939393")
-			.attr("y1", 50)
-			.attr("y2", 50);
+			.attr("stroke-width", 2)
+			.attr("stroke", "#ea9000")
+			.attr("y1", 40)
+			.attr("y2", 40);
+
+	svg.append("rect")
+			.data(data)
+			.attr("class","reagan-dot1")
+			.attr("width", "2px")
+			.attr("height", "9px")
+			.attr("fill", "#ea9000")
+			.attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","reagan-dot2")
-			.attr("width", "1px")
-			.attr("height", "4px")
-			.attr("fill", "#939393")
-			.attr("y", 50);
+			.attr("width", "2px")
+			.attr("height", "10px")
+			.attr("fill", "#ea9000")
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","reagan-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("REAGAN")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -280,22 +292,30 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 	svg.append("line")
 			.data(data)
 			.attr("class","hwbush")
-			.attr("stroke-width", 1)
-			.attr("stroke", "#939393")
-			.attr("y1", 50)
-			.attr("y2", 50);
+			.attr("stroke-width", 2)
+			.attr("stroke", "#fbd603")
+			.attr("y1", 40)
+			.attr("y2", 40);
+
+	svg.append("rect")
+			.data(data)
+			.attr("class","hwbush-dot1")
+			.attr("width", "2px")
+			.attr("height", "9px")
+			.attr("fill", "#fbd603")
+			.attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","hwbush-dot2")
-			.attr("width", "1px")
-			.attr("height", "4px")
-			.attr("fill", "#939393")
-			.attr("y", 50);
+			.attr("width", "2px")
+			.attr("height", "10px")
+			.attr("fill", "#fbd603")
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","hwbush-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("H.W. BUSH")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -306,22 +326,30 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 	svg.append("line")
 			.data(data)
 			.attr("class","clinton")
-			.attr("stroke-width", 1)
-			.attr("stroke", "#939393")
-			.attr("y1", 50)
-			.attr("y2", 50);
+			.attr("stroke-width", 2)
+			.attr("stroke", "#ea9000")
+			.attr("y1", 40)
+			.attr("y2", 40);
+
+	svg.append("rect")
+			.data(data)
+			.attr("class","clinton-dot1")
+			.attr("width", "2px")
+			.attr("height", "9px")
+			.attr("fill", "#ea9000")
+			.attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","clinton-dot2")
-			.attr("width", "1px")
-			.attr("height", "4px")
-			.attr("fill", "#939393")
-			.attr("y", 50);
+			.attr("width", "2px")
+			.attr("height", "10px")
+			.attr("fill", "#ea9000")
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","clinton-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("CLINTON")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -332,22 +360,30 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 	svg.append("line")
 			.data(data)
 			.attr("class","bush")
-			.attr("stroke-width", 1)
-			.attr("stroke", "#939393")
-			.attr("y1", 50)
-			.attr("y2", 50);
+			.attr("stroke-width", 2)
+			.attr("stroke", "#fbd603")
+			.attr("y1", 40)
+			.attr("y2", 40);
+
+	svg.append("rect")
+			.data(data)
+			.attr("class","bush-dot1")
+			.attr("width", "2px")
+			.attr("height", "9px")
+			.attr("fill", "#fbd603")
+			.attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","bush-dot2")
-			.attr("width", "1px")
-			.attr("height", "4px")
-			.attr("fill", "#939393")
-			.attr("y", 50);
+			.attr("width", "2px")
+			.attr("height", "10px")
+			.attr("fill", "#fbd603")
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","bush-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("BUSH")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -358,22 +394,30 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 	svg.append("line")
 			.data(data)
 			.attr("class","obama")
-			.attr("stroke-width", 1)
-			.attr("stroke", "#939393")
-			.attr("y1", 50)
-			.attr("y2", 50);
+			.attr("stroke-width", 2)
+			.attr("stroke", "#ea9000")
+			.attr("y1", 40)
+			.attr("y2", 40);
+
+	svg.append("rect")
+			.data(data)
+			.attr("class","obama-dot1")
+			.attr("width", "2px")
+			.attr("height", "9px")
+			.attr("fill", "#ea9000")
+			.attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","obama-dot2")
-			.attr("width", "1px")
-			.attr("height", "4px")
-			.attr("fill", "#939393")
-			.attr("y", 50);
+			.attr("width", "2px")
+			.attr("height", "10px")
+			.attr("fill", "#ea9000")
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","obama-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("OBAMA")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -384,22 +428,30 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 	svg.append("line")
 			.data(data)
 			.attr("class","trump")
-			.attr("stroke-width", 1)
-			.attr("stroke", "#939393")
-			.attr("y1", 50)
-			.attr("y2", 50);
+			.attr("stroke-width", 2)
+			.attr("stroke", "#fbd603")
+			.attr("y1", 40)
+			.attr("y2", 40);
+
+	svg.append("rect")
+			.data(data)
+			.attr("class","trump-dot1")
+			.attr("width", "2px")
+			.attr("height", "9px")
+			.attr("fill", "#fbd603")
+			.attr("y", 40);
 
 	svg.append("rect")
 			.data(data)
 			.attr("class","trump-dot2")
-			.attr("width", "1px")
-			.attr("height", "4px")
-			.attr("fill", "#939393")
-			.attr("y", 50);
+			.attr("width", "2px")
+			.attr("height", "10px")
+			.attr("fill", "#fbd603")
+			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","trump-name")
-		.attr("y", 45)
+		.attr("y", 35)
 		.text("TRUMP")
 		.attr("font-size", "10px")
 		.attr("font-family","Poppins")
@@ -477,77 +529,95 @@ function resize() {
 
 	//CARTER
 	svg.selectAll(".carter")
-		.attr("x1", function(d) { return xScale("1977") + margin.left + xScale.bandwidth()*.5; })
-		.attr("x2", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x1", function(d) { return xScale("1977") + margin.left + xScale.bandwidth()*.5 + 3; })
+		.attr("x2", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".carter-dot1")
-		.attr("x", function(d) { return xScale("1977") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("1977") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".carter-dot2")
-		.attr("x", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".carter-name")
 		.attr("x", function(d) { return (xScale("1981") - xScale("1977"))/2 + xScale("1977") + margin.left + xScale.bandwidth()*.5; });
 
 	//REAGAN
 	svg.selectAll(".reagan")
-		.attr("x1", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5; })
-		.attr("x2", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x1", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 + 3; })
+		.attr("x2", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 - 3; });
+
+	svg.selectAll(".reagan-dot1")
+		.attr("x", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".reagan-dot2")
-		.attr("x", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".reagan-name")
 		.attr("x", function(d) { return (xScale("1989") - xScale("1981"))/2 + xScale("1981") + margin.left + xScale.bandwidth()*.5; });
 
 	//H.W. BUSH
 	svg.selectAll(".hwbush")
-		.attr("x1", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5; })
-		.attr("x2", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x1", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 + 3; })
+		.attr("x2", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 - 3; });
+
+	svg.selectAll(".hwbush-dot1")
+		.attr("x", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".hwbush-dot2")
-		.attr("x", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".hwbush-name")
 		.attr("x", function(d) { return (xScale("1989") - xScale("1993"))/2 + xScale("1993") + margin.left + xScale.bandwidth()*.5; });
 
 	//CLINTON
 	svg.selectAll(".clinton")
-		.attr("x1", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5; })
-		.attr("x2", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x1", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 + 3; })
+		.attr("x2", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 - 3; });
+
+	svg.selectAll(".clinton-dot1")
+		.attr("x", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".clinton-dot2")
-		.attr("x", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".clinton-name")
 		.attr("x", function(d) { return (xScale("2001") - xScale("1993"))/2 + xScale("1993") + margin.left + xScale.bandwidth()*.5; });
 
 	//BUSH
 	svg.selectAll(".bush")
-		.attr("x1", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5; })
-		.attr("x2", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x1", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 + 3; })
+		.attr("x2", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 - 3; });
+
+	svg.selectAll(".bush-dot1")
+		.attr("x", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".bush-dot2")
-		.attr("x", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".bush-name")
 		.attr("x", function(d) { return (xScale("2009") - xScale("2001"))/2 + xScale("2001") + margin.left + xScale.bandwidth()*.5; });
 
 	//OBAMA
 	svg.selectAll(".obama")
-		.attr("x1", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5; })
-		.attr("x2", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x1", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 + 3; })
+		.attr("x2", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 - 3; });
+
+	svg.selectAll(".obama-dot1")
+		.attr("x", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".obama-dot2")
-		.attr("x", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5; });
+		.attr("x", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 - 3; });
 
 	svg.selectAll(".obama-name")
 		.attr("x", function(d) { return (xScale("2017") - xScale("2009"))/2 + xScale("2009") + margin.left + xScale.bandwidth()*.5; });
 
 	//TRUMP
 	svg.selectAll(".trump")
-		.attr("x1", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5; })
+		.attr("x1", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 + 3; })
 		.attr("x2", function(d) { return xScale("2018") + margin.left + xScale.bandwidth()*.5; });
+
+	svg.selectAll(".trump-dot1")
+		.attr("x", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 + 3; });
 
 	svg.selectAll(".trump-dot2")
 		.attr("x", function(d) { return xScale("2018") + margin.left + xScale.bandwidth()*.5; });
@@ -599,17 +669,17 @@ d3.csv("negative.csv", function(d) {
       .attr("class", "axis axis--y two")
       .style("font-size", "10px")
       .style("font-family","Poppins")
-      .call(d3.axisLeft(yScale1).tickValues([d3.min(data, function(d) { return d.negative; })]));
+      .call(d3.axisLeft(yScale1).tickValues([0,d3.min(data, function(d) { return d.negative; })]));
 
   svg1.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0)
-      .attr("x",0 - (height1 / 2.5))
+      .attr("x",0 - (height1 / 2.75))
       .attr("dy", "1em")
-      .attr("text-anchor", "middle")
+      .attr("text-anchor", "left")
       .attr("font-size", "12px")
       .attr("font-family","Poppins")
-      .text("Number of Pardon Applications");
+      .text("Number of Pardon");
 
   g1.selectAll(".bar")
     .data(data)
