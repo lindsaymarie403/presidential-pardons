@@ -109,11 +109,8 @@ var svg = d3.select('#chart1')
 var xScale = d3.scaleBand().rangeRound([0, width]).padding(0.3),
     yScale = d3.scaleLinear().rangeRound([height, 0]);
 
-//var z = d3.scaleOrdinal()
-//    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
 var z = d3.scaleOrdinal()
-    .range(["#fbd603", "#ea9000", "#fbd603", "#ea9000", "#fbd603", "#ea9000", "#fbd603"]);
+    .range(["#fbd603", "#ea9f00", "#fbd603", "#ea9f00", "#fbd603", "#ea9f00", "#fbd603"]);
 
 var xAxis = d3.axisBottom(xScale);
 
@@ -122,6 +119,12 @@ var arc1 = d3.arc()
     .outerRadius(25)
     .startAngle(-Math.PI / 2)
     .endAngle(Math.PI / 2);
+
+var arc2 = d3.arc()
+    .innerRadius(24)
+    .outerRadius(25)
+    .startAngle(Math.PI / 2)
+    .endAngle(-Math.PI / 4);
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -144,7 +147,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
         .attr("transform", "translate(0," + height + ")")
         .style("font-size", "10px")
         .style("font-family","Poppins")
-        .call(xAxis.tickValues([1980, 1990, 2000, 2010]));
+        .call(xAxis.tickValues([1981, 1989, 1993, 2001, 2009, 2017]));
 
   g.append("g")
       .attr("class", "axis axis--y")
@@ -188,7 +191,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			 .attr("markerWidth",4)
 			 .attr("markerHeight",4)
 			 .attr("orient","auto")
-			 .attr("fill","#b71919")
+			 .attr("fill","#1557a3")
 			.append("path")
 					.attr("d", "M0,-5L10,0L0,5")
 					.attr("class","arrowHead");
@@ -199,7 +202,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
     .attr("x2", margin.left + xScale.bandwidth())
     .attr("y2", height + margin.top - 80)
     .attr("stroke-width", 2)
-    .attr("stroke", "#b71919")
+    .attr("stroke", "#1557a3")
 		.attr("marker-end","url(#arrow2)");
 
 	svg.append("text")
@@ -209,7 +212,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 		.text("Petitions the president granted,")
 		.attr("font-size", "12px")
 		.attr("font-family","Poppins")
-		.attr("fill","#b71919");
+		.attr("fill","#1557a3");
 
 	svg.append("text")
 		.attr("class","anno3")
@@ -218,7 +221,37 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 		.text("denied or closed")
 		.attr("font-size", "12px")
 		.attr("font-family","Poppins")
-		.attr("fill","#b71919");
+		.attr("fill","#1557a3");
+
+	// arrow pointing to 2017
+	svg.selectAll(".curve2")
+		.data(data)
+	.enter().append("path")
+		.attr("class","curve2")
+		.attr("d", arc2)
+		.attr("fill","#939393")
+		.attr("marker-end","url(#arrow)");
+
+ svg.selectAll(".anno2017_1")
+		 .data(data)
+	 .enter().append("text")
+		 .attr("class","anno2017_1")
+		 .attr("y", 100)
+		 .text("2017 is split between")
+		 .attr("font-size", "11px")
+		 .attr("font-family","Poppins")
+		 .attr("fill","#939393");
+
+	svg.selectAll(".anno2017_2")
+			.data(data)
+		.enter().append("text")
+		 .attr("class","anno2017_2")
+			.attr("y", 115)
+			.text("Obama and Trump")
+			.attr("font-size", "11px")
+			.attr("font-family","Poppins")
+			.attr("fill","#939393");
+
 
 	//CARTER
 	svg.append("line")
@@ -259,7 +292,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.data(data)
 			.attr("class","reagan")
 			.attr("stroke-width", 2)
-			.attr("stroke", "#ea9000")
+			.attr("stroke", "#ea9f00")
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -268,7 +301,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","reagan-dot1")
 			.attr("width", "2px")
 			.attr("height", "9px")
-			.attr("fill", "#ea9000")
+			.attr("fill", "#ea9f00")
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -276,7 +309,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","reagan-dot2")
 			.attr("width", "2px")
 			.attr("height", "10px")
-			.attr("fill", "#ea9000")
+			.attr("fill", "#ea9f00")
 			.attr("y", 39);
 
 	svg.append("text")
@@ -327,7 +360,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.data(data)
 			.attr("class","clinton")
 			.attr("stroke-width", 2)
-			.attr("stroke", "#ea9000")
+			.attr("stroke", "#ea9f00")
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -336,7 +369,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","clinton-dot1")
 			.attr("width", "2px")
 			.attr("height", "9px")
-			.attr("fill", "#ea9000")
+			.attr("fill", "#ea9f00")
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -344,7 +377,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","clinton-dot2")
 			.attr("width", "2px")
 			.attr("height", "10px")
-			.attr("fill", "#ea9000")
+			.attr("fill", "#ea9f00")
 			.attr("y", 39);
 
 	svg.append("text")
@@ -395,7 +428,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.data(data)
 			.attr("class","obama")
 			.attr("stroke-width", 2)
-			.attr("stroke", "#ea9000")
+			.attr("stroke", "#ea9f00")
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -404,7 +437,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","obama-dot1")
 			.attr("width", "2px")
 			.attr("height", "9px")
-			.attr("fill", "#ea9000")
+			.attr("fill", "#ea9f00")
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -412,7 +445,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","obama-dot2")
 			.attr("width", "2px")
 			.attr("height", "10px")
-			.attr("fill", "#ea9000")
+			.attr("fill", "#ea9f00")
 			.attr("y", 39);
 
 	svg.append("text")
@@ -526,6 +559,17 @@ function resize() {
 
 	svg1.selectAll(".curve1")
 		.attr("transform",function(d) { return "translate(" + (xScale1(d.year) + margin1.left + xScale1.bandwidth() - 30) + ",220) rotate(180)"; });
+
+	svg.selectAll(".curve2")
+		.attr("transform",function(d) { return "translate(" + (xScale(2017) + margin.left - 21) + ",100)"; });
+
+	svg.selectAll(".anno2017_1")
+		.style("text-anchor", "end")
+		.attr("x", (function(d) { return (xScale(2017)+10); }  ));
+
+	svg.selectAll(".anno2017_2")
+		.style("text-anchor", "end")
+		.attr("x", (function(d) { return (xScale(2017)+10); }  ));
 
 	//CARTER
 	svg.selectAll(".carter")
@@ -663,7 +707,7 @@ d3.csv("negative.csv", function(d) {
         .attr("transform", "translate(0,0)")
         .style("font-size", "10px")
         .style("font-family","Poppins")
-        .call(xAxis1.tickValues([1980,1990,2000,2010]));
+        .call(xAxis1.tickValues([1981, 1989, 1993, 2001, 2009, 2017]));
 
   g1.append("g")
       .attr("class", "axis axis--y two")
@@ -757,7 +801,7 @@ d3.csv("negative.csv", function(d) {
 				.attr("x2", margin.left + xScale.bandwidth())
 				.attr("y2", 85)
 				.attr("stroke-width", 2)
-				.attr("stroke", "#b71919")
+				.attr("stroke", "#1557a3")
 			 .attr("marker-end","url(#arrow2)");
 
 		 svg1.append("text")
@@ -767,7 +811,7 @@ d3.csv("negative.csv", function(d) {
 			 .text("Petitions the president")
 			 .attr("font-size", "12px")
 			 .attr("font-family","Poppins")
-			 .attr("fill","#b71919");
+			 .attr("fill","#1557a3");
 
 		 svg1.append("text")
 			 .attr("class","anno3")
@@ -776,7 +820,7 @@ d3.csv("negative.csv", function(d) {
 			 .text("did not address")
 			 .attr("font-size", "12px")
 			 .attr("font-family","Poppins")
-			 .attr("fill","#b71919");
+			 .attr("fill","#1557a3");
 
 		 svg1.append("text")
 			 .attr("class","anno3")
