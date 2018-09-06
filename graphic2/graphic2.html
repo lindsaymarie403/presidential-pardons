@@ -84,7 +84,7 @@ h4 {
 
 <div id="container">
 <div id="text">
-  <h1>Trump Has Granted High-Profile Pardons While Backlog of Applications Grows</h1>
+  <h1>Trump has granted high-profile pardons while backlog of applications grows</h1>
   <h3>By Lindsay Huth / Capital News Service</h3>
   <h2>Total Clemency Petitions Pending Each Fiscal Year</h2>
 </div>
@@ -97,9 +97,9 @@ h4 {
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-var margin = {top: 55, right: 20, bottom: 16, left: 50},
+var margin = {top: 55, right: 20, bottom: 22, left: 50},
     width = 625 - margin.left - margin.right,
-    height = 276 - margin.top - margin.bottom;
+    height = 282 - margin.top - margin.bottom;
 
 var svg = d3.select('#chart1')
   .append('svg')
@@ -224,17 +224,18 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 		.attr("fill","#1557a3");
 
 	// arrow pointing to 2017
-	svg.selectAll(".curve2")
+	svg.append("path")
 		.data(data)
-	.enter().append("path")
 		.attr("class","curve2")
 		.attr("d", arc2)
+		.attr("transform",function(d) { return "translate(" + (xScale(2017) + margin.left - 21) + ",100)"; })
 		.attr("fill","#939393")
 		.attr("marker-end","url(#arrow)");
 
- svg.selectAll(".anno2017_1")
+ svg.append("text")
 		 .data(data)
-	 .enter().append("text")
+		 .style("text-anchor", "end")
+		 .attr("x", (function(d) { return (xScale(2017)+10); }  ))
 		 .attr("class","anno2017_1")
 		 .attr("y", 100)
 		 .text("Inauguration years are split")
@@ -242,10 +243,11 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 		 .attr("font-family","Poppins")
 		 .attr("fill","#939393");
 
-	svg.selectAll(".anno2017_2")
+	svg.append("text")
 			.data(data)
-		.enter().append("text")
 		 .attr("class","anno2017_2")
+		 .style("text-anchor", "end")
+		 .attr("x", (function(d) { return (xScale(2017)+10); }  ))
 			.attr("y", 115)
 			.text("between two presidents")
 			.attr("font-size", "11px")
@@ -259,6 +261,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","carter")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#fbd603")
+			.attr("x1", function(d) { return xScale("1977") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 - 3; })
 	    .attr("y1", 40)
 			.attr("y2", 40);
 
@@ -268,6 +272,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("1977") + margin.left + xScale.bandwidth()*.5 + 3; })
 	    .attr("y", 40);
 
 	svg.append("rect")
@@ -276,10 +281,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","carter-name")
+		.attr("x", function(d) { return (xScale("1981") - xScale("1977"))/2 + xScale("1977") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("CARTER")
 		.attr("font-size", "10px")
@@ -293,6 +300,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","reagan")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#db6702")
+			.attr("x1", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -302,6 +311,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#db6702")
+			.attr("x", function(d) { return xScale("1981") + margin.left + xScale.bandwidth()*.5 + 3; })
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -310,10 +320,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#db6702")
+			.attr("x", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","reagan-name")
+		.attr("x", function(d) { return (xScale("1989") - xScale("1981"))/2 + xScale("1981") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("REAGAN")
 		.attr("font-size", "10px")
@@ -327,6 +339,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","hwbush")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#fbd603")
+			.attr("x1", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -336,6 +350,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("1989") + margin.left + xScale.bandwidth()*.5 + 3; })
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -344,10 +359,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","hwbush-name")
+		.attr("x", function(d) { return (xScale("1989") - xScale("1993"))/2 + xScale("1993") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("H.W. BUSH")
 		.attr("font-size", "10px")
@@ -361,6 +378,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","clinton")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#db6702")
+			.attr("x1", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -370,6 +389,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#db6702")
+			.attr("x", function(d) { return xScale("1993") + margin.left + xScale.bandwidth()*.5 + 3; })
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -378,10 +398,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#db6702")
+			.attr("x", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","clinton-name")
+		.attr("x", function(d) { return (xScale("2001") - xScale("1993"))/2 + xScale("1993") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("CLINTON")
 		.attr("font-size", "10px")
@@ -395,6 +417,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","bush")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#fbd603")
+			.attr("x1", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -404,6 +428,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("2001") + margin.left + xScale.bandwidth()*.5 + 3; })
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -412,10 +437,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","bush-name")
+		.attr("x", function(d) { return (xScale("2009") - xScale("2001"))/2 + xScale("2001") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("BUSH")
 		.attr("font-size", "10px")
@@ -429,6 +456,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","obama")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#db6702")
+			.attr("x1", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -438,6 +467,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#db6702")
+			.attr("x", function(d) { return xScale("2009") + margin.left + xScale.bandwidth()*.5 + 3; })
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -446,10 +476,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#db6702")
+			.attr("x", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 - 3; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","obama-name")
+		.attr("x", function(d) { return (xScale("2017") - xScale("2009"))/2 + xScale("2009") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("OBAMA")
 		.attr("font-size", "10px")
@@ -463,6 +495,8 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("class","trump")
 			.attr("stroke-width", 2)
 			.attr("stroke", "#fbd603")
+			.attr("x1", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 + 3; })
+			.attr("x2", function(d) { return xScale("2018") + margin.left + xScale.bandwidth()*.5; })
 			.attr("y1", 40)
 			.attr("y2", 40);
 
@@ -472,6 +506,7 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "9px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("2017") + margin.left + xScale.bandwidth()*.5 + 3; })
 			.attr("y", 40);
 
 	svg.append("rect")
@@ -480,10 +515,12 @@ d3.csv("positive_new.csv", function(d, i, columns) {
 			.attr("width", "2px")
 			.attr("height", "10px")
 			.attr("fill", "#fbd603")
+			.attr("x", function(d) { return xScale("2018") + margin.left + xScale.bandwidth()*.5; })
 			.attr("y", 39);
 
 	svg.append("text")
 		.attr("class","trump-name")
+		.attr("x", function(d) { return (xScale("2018") - xScale("2017"))/2 + xScale("2017") + margin.left + xScale.bandwidth()*.5; })
 		.attr("y", 35)
 		.text("TRUMP")
 		.attr("font-size", "10px")
@@ -685,7 +722,7 @@ var svg1 = d3.select('#chart2')
     .attr('height', height1 + margin1.top + margin1.bottom);
 
 var xScale1 = d3.scaleBand().rangeRound([0, width1]).padding(0.3),
-    yScale1 = d3.scaleLinear().rangeRound([0, height1]);
+    yScale1 = d3.scaleLinear().rangeRound([height1,0]);
 
 var xAxis1 = d3.axisTop(xScale1);
 
@@ -700,7 +737,7 @@ d3.csv("negative.csv", function(d) {
   if (error) throw error;
 
   xScale1.domain(data.map(function(d) { return d.year; }));
-  yScale1.domain([0,d3.min(data, function(d) { return d.negative; })]);
+  yScale1.domain([d3.min(data, function(d) { return d.negative; }),0]);
 
   g1.append("g")
         .attr("class", "axis axis--x two")
@@ -722,7 +759,7 @@ d3.csv("negative.csv", function(d) {
   svg1.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0)
-      .attr("x",0 - (height1 / 2.75))
+      .attr("x",2 - (height1 / 2.75))
       .attr("dy", "1em")
       .attr("text-anchor", "left")
       .attr("font-size", "12px")
@@ -742,6 +779,8 @@ d3.csv("negative.csv", function(d) {
 			.data(data)
 		.enter().append("text")
 			.attr("class","anno1")
+			.style("text-anchor", "end")
+			.attr("x", (function(d) { return xScale1(d.year) + margin1.left + xScale1.bandwidth() - (xScale1.bandwidth()/1.25) - 30; }  ))
 			.attr("y", function(d) { return yScale1(d.negative); })
 			.text("Obama launches his")
 			.attr("font-size", "11px")
@@ -758,6 +797,8 @@ d3.csv("negative.csv", function(d) {
 			 .data(data)
 		 .enter().append("text")
 			.attr("class","anno2")
+			.style("text-anchor", "end")
+			.attr("x", (function(d) { return xScale1(d.year) + margin1.left + xScale1.bandwidth() - (xScale1.bandwidth()/1.25) - 30; }  ))
 			 .attr("y", function(d) { return yScale1(d.negative) + 15; })
 			 .text("clemency initiative")
 			 .attr("font-size", "11px")
@@ -790,6 +831,7 @@ d3.csv("negative.csv", function(d) {
 		.enter().append("path")
 			.attr("class","curve1")
 			.attr("d", arc1)
+			.attr("transform",function(d) { return "translate(" + (xScale1(d.year) + margin1.left + xScale1.bandwidth() - 30) + ",225) rotate(180)"; })
 			.attr("fill","#939393")
 			.attr("marker-end","url(#arrow)")
 			.style("display", function(d) {
@@ -800,9 +842,9 @@ d3.csv("negative.csv", function(d) {
 			 });
 
 		 svg1.append("line")
-			 .attr("x1", margin.left + xScale.bandwidth())
+			 .attr("x1", margin1.left + xScale1.bandwidth())
 				.attr("y1", 5)
-				.attr("x2", margin.left + xScale.bandwidth())
+				.attr("x2", margin1.left + xScale1.bandwidth())
 				.attr("y2", 85)
 				.attr("stroke-width", 2)
 				.attr("stroke", "#1557a3")
@@ -810,7 +852,7 @@ d3.csv("negative.csv", function(d) {
 
 		 svg1.append("text")
 			 .attr("class","anno3")
-			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("x", margin1.left + xScale1.bandwidth() + 10)
 			 .attr("y", 75)
 			 .text("Petitions the president")
 			 .attr("font-size", "12px")
@@ -819,7 +861,7 @@ d3.csv("negative.csv", function(d) {
 
 		 svg1.append("text")
 			 .attr("class","anno3")
-			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("x", margin1.left + xScale1.bandwidth() + 10)
 			 .attr("y", 90)
 			 .text("did not address")
 			 .attr("font-size", "12px")
@@ -828,7 +870,7 @@ d3.csv("negative.csv", function(d) {
 
 		 svg1.append("text")
 			 .attr("class","anno3")
-			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("x", margin1.left + xScale1.bandwidth() + 10)
 			 .attr("y", 110)
 			 .text("(Unaddressed petitions")
 			 .attr("font-size", "12px")
@@ -837,7 +879,7 @@ d3.csv("negative.csv", function(d) {
 
 		 svg1.append("text")
 			 .attr("class","anno3")
-			 .attr("x", margin.left + xScale.bandwidth() + 10)
+			 .attr("x", margin1.left + xScale1.bandwidth() + 10)
 			 .attr("y", 125)
 			 .text("roll over to next year)")
 			 .attr("font-size", "12px")

@@ -70,7 +70,7 @@ h4 {
 
 <div id="container">
 <div id="text">
-  <h1>Trump Has Granted More Early-Term Pardons Than Recent Presidents</h1>
+  <h1>Trump has granted more early-term pardons than recent presidents</h1>
   <h3>By Lindsay Huth / Capital News Service</h3>
   <h2>Pardons and Commutations Granted During First 18 Months in Office</h2>
 </div>
@@ -171,6 +171,7 @@ d3.csv("graphic1.csv", function(d) {
       .data(data)
     .enter().append("text")
       .attr("class","anno1")
+			.attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth(); }  ))
       .attr("y", function(d) { return yScale(d.granted) - 35; })
       .text("Reagan began efforts")
       .attr("font-size", "11px")
@@ -187,6 +188,7 @@ d3.csv("graphic1.csv", function(d) {
        .data(data)
      .enter().append("text")
       .attr("class","anno2")
+			.attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth(); }  ))
        .attr("y", function(d) { return yScale(d.granted) - 20; })
        .text("to limit pardons")
        .attr("font-size", "11px")
@@ -203,6 +205,8 @@ d3.csv("graphic1.csv", function(d) {
         .data(data)
       .enter().append("text")
         .attr("class","anno3")
+				.style("text-anchor", "end")
+		    .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth() - (xScale.bandwidth()/1.25) - 10; }  ))
         .attr("y", function(d) { return yScale(d.granted) - 45; })
         .text("Before Trump, a president hadn't")
         .attr("font-size", "11px")
@@ -219,6 +223,8 @@ d3.csv("graphic1.csv", function(d) {
          .data(data)
        .enter().append("text")
         .attr("class","anno3")
+				.style("text-anchor", "end")
+		    .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth() - (xScale.bandwidth()/1.25) - 10; }  ))
          .attr("y", function(d) { return yScale(d.granted) - 30; })
          .text("granted an early-term pardon")
          .attr("font-size", "11px")
@@ -235,6 +241,8 @@ d3.csv("graphic1.csv", function(d) {
           .data(data)
         .enter().append("text")
          .attr("class","anno3")
+				 .style("text-anchor", "end")
+		     .attr("x", (function(d) { return xScale(d.president) + margin.left + xScale.bandwidth() - (xScale.bandwidth()/1.25) - 10; }  ))
           .attr("y", function(d) { return yScale(d.granted) - 15; })
           .text("in nearly 30 years")
           .attr("font-size", "11px")
@@ -269,6 +277,7 @@ d3.csv("graphic1.csv", function(d) {
       .attr("d", arc1)
       .attr("fill","#939393")
       .attr("marker-end","url(#arrow)")
+			.attr("transform",function(d) { return "translate(" + (xScale(d.president) + margin.left + xScale.bandwidth() - 10) + ",110)";})
       .style("display", function(d) {
          var disp;
          if (d.president === "Reagan") { disp = "inline";
@@ -283,6 +292,7 @@ d3.csv("graphic1.csv", function(d) {
        .attr("d", arc2)
        .attr("fill","#939393")
        .attr("marker-end","url(#arrow)")
+			 .attr("transform",function(d) { return "translate(" + (xScale(d.president) + margin.left + xScale.bandwidth() - (xScale.bandwidth()/1.25)) + ",228)";})
        .style("display", function(d) {
           var disp;
           if (d.president === "Trump") { disp = "inline";
